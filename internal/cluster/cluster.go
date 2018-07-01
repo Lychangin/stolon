@@ -78,6 +78,9 @@ const (
 
 type PGParameters map[string]string
 
+type LogicalParameters struct {
+	SlotName string `json:"slot_name"`
+}
 type FollowType string
 
 const (
@@ -249,6 +252,10 @@ type ClusterSpec struct {
 	// here will be dropped from the master instance (i.e. manually created
 	// replication slots will be removed).
 	AdditionalMasterReplicationSlots []string `json:"additionalMasterReplicationSlots"`
+	// AdditionalMasterLogicalReplicationSlots defines additional replication logical slots to
+	// be not delete on the master postgres instance. Logical replication slots not defined
+	// here will be dropped from the master instance.
+	AdditionalMasterLogicalReplicationSlots []LogicalParameters `json:"additionalMasterLogicalReplicationSlots"`
 	// Whether to use pg_rewind
 	UsePgrewind *bool `json:"usePgrewind,omitempty"`
 	// InitMode defines the cluster initialization mode. Current modes are: new, existing, pitr
